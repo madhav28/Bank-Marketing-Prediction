@@ -5,7 +5,7 @@ import numpy as np
 st.title("Bank Marketing Prediction")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
-    ['Introduction', 'Objectives', 'Data Visualisation / Analysis', 'Predictive Modelling', 'Conclusion'])
+    ['About Data', 'Objectives', 'Predictive Modelling', 'Conclusion', 'About Me'])
 
 bank_marketing_df = pd.read_csv(
     "https://raw.githubusercontent.com/madhav28/Bank-Marketing-Prediction/master/bank-full.csv", sep=';')
@@ -41,3 +41,12 @@ with tab1:
     feature_description_df.index = idx
 
     st.table(feature_description_df)
+
+with tab2:
+    st.markdown("**Objectives of the application:**")
+
+    st.markdown("In this application, the following two questions are answered:")
+    st.markdown(
+        "   **💡 What kind of customers are likely to subscribe to a term deposit?**")
+    st.markdown(
+        "   **💡 What marketing strategies are to be employed by the bank for a successful and an economical campaign?**")
