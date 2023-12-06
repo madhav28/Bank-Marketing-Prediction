@@ -1087,6 +1087,6 @@ with tab4:
         st.markdown(
             "Bachelor of Technology in Chemical Engineering, IIT Madras.")
         st.markdown("**Research Interests:**")
-        st.markdown("Data-driven identificaiton of ODE's and PDE's.")
+        st.markdown("Data-driven identificaton of ODE's and PDE's.")
         st.markdown("**Hobbies:**")
         st.markdown("Chess, Cricket and Football.")
