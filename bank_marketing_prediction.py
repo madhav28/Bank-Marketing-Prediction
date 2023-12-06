@@ -15,20 +15,6 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
 
-if 'pm_tab1' not in st.session_state:
-    st.session_state.pm_tab1 = 0
-
-if 'pm_tab2' not in st.session_state:
-    st.session_state.pm_tab2 = 0
-
-if 'pm_tab3' not in st.session_state:
-    st.session_state.pm_tab3 = 0
-
-if 'pm_tab4' not in st.session_state:
-    st.session_state.pm_tab4 = 0
-
-if 'pm_tab5' not in st.session_state:
-    st.session_state.pm_tab5 = 0
 
 st.title("Bank Marketing Prediction")
 
@@ -202,57 +188,181 @@ with tab4:
         ['Logistic Regression', 'Support Vector Machine', 'Decision Tree', 'K-Nearest Neighbours', 'Naive Bayes'])
 
     with pm_tab1:
+        st.markdown(
+            "First, build the model, then predict the outcome using the built model.")
+        st.markdown("##### Build Model → Predict Outcome")
 
-        st.session_state.pm_tab1 = st.session_state.pm_tab1 + 1
+        pm_tab1_tab1, pm_tab1_tab2 = st.tabs(
+            ['Build Model', 'Predict Outcome'])
 
-        st.markdown("#### Choose Hyperparameters and Build Model")
+        with pm_tab1_tab1:
 
-        features = st.multiselect(
-            "Select features", bank_marketing_df.columns[0:16],
-            default=np.array(bank_marketing_df.columns[0:16]),
-            key="features_pm_tab1")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab1")
+            st.markdown("#### Build Model")
 
-        build_model = st.button("Build Model", key="build_model_pm_tab1")
+            features = st.multiselect(
+                "Select features", bank_marketing_df.columns[0:16],
+                default=np.array(bank_marketing_df.columns[0:16]),
+                key="features_pm_tab1")
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab1")
 
-        if st.session_state.pm_tab1 == 1:
+            build_model = st.button(
+                "Build Model", type="primary", key="build_model_pm_tab1")
 
-            X = bank_marketing_df.drop('outcome', axis=1)
-            y = bank_marketing_df['outcome']
+            if build_model:
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', LogisticRegression())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
+
+                model_1 = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', LogisticRegression())
+                ])
+
+                model_1.fit(X_train, y_train)
+
+                st.markdown("#### Model built successfully!")
+
+                st.markdown("#### Proceed to Predict Outcome tab!!")
+
+        with pm_tab1_tab2:
+
+            st.markdown("#### Predict Subscription Outcome")
+
+            X_pred = {}
+
+            for feature in features:
+                if feature == "age":
+                    age = st.slider(
+                        "Select age:", min_value=18, max_value=100, value=35, step=1, key="age_pm_tab1")
+                    X_pred["age"] = [age]
+                if feature == "job":
+                    options = ["admin.", "blue-collar", "technician", "services", "management",
+                               "retired", "self-employed", "entrepreneur", "housemaid", "student"]
+                    job = st.selectbox(
+                        "Select job:", options, key="job_pm_tab1")
+                    X_pred["job"] = [job]
+                if feature == "marital":
+                    options = ["married", "single", "divorced"]
+                    marital = st.selectbox(
+                        "Select marital:", options, key="marital_pm_tab1")
+                    X_pred["marital"] = [marital]
+                if feature == "education":
+                    options = ["primary", "secondary", "tertiary"]
+                    education = st.selectbox(
+                        "Select education:", options, key="education_pm_tab1")
+                    X_pred["education"] = [education]
+                if feature == "default":
+                    options = ["no", "yes"]
+                    default = st.selectbox(
+                        "Select default:", options, key="default_pm_tab1")
+                    X_pred["default"] = [default]
+                if feature == "balance":
+                    balance = st.slider(
+                        "Select balance:", min_value=-20000, max_value=100000, value=5000, step=100, key="balance_pm_tab1")
+                    X_pred["balance"] = [balance]
+                if feature == "housing":
+                    options = ["no", "yes"]
+                    housing = st.selectbox(
+                        "Select housing:", options, key="housing_pm_tab1")
+                    X_pred["housing"] = [housing]
+                if feature == "loan":
+                    options = ["no", "yes"]
+                    loan = st.selectbox(
+                        "Select loan:", options, key="loan_pm_tab1")
+                    X_pred["loan"] = [loan]
+                if feature == "contact":
+                    options = ["cellular", "telephone", "other"]
+                    contact = st.selectbox(
+                        "Enter contact:", options, key="contact_pm_tab1")
+                    X_pred["contact"] = [contact]
+                if feature == "day":
+                    day = st.slider(
+                        "Select day:", min_value=1, max_value=31, value=15, step=1, key="day_pm_tab1")
+                    X_pred["day"] = [day]
+                if feature == "month":
+                    options = ["jan", "feb", "mar", "apr", "may", "jun",
+                               "jul", "aug", "sep", "oct", "nov", "dec"]
+                    month = st.selectbox(
+                        "Select month:", options, key="month_pm_tab1")
+                    X_pred["month"] = [month]
+                if feature == "duration":
+                    duration = st.slider(
+                        "Enter duration:", min_value=0, max_value=3000, value=1000, step=1, key="duration_pm_tab1")
+                    X_pred["duration"] = [duration]
+                if feature == "campaign":
+                    campaign = st.slider(
+                        "Select campaign:", min_value=0, max_value=40, value=10, step=1, key="campaign_pm_tab1")
+                    X_pred["campaign"] = [campaign]
+                if feature == "pdays":
+                    pdays = st.slider(
+                        "Select pdays:", min_value=0, max_value=1000, value=100, step=1, key="pdays_pm_tab1")
+                    X_pred["pdays"] = [pdays]
+                if feature == "previous":
+                    previous = st.slider(
+                        "Select previous:", min_value=0, max_value=40, value=10, step=1, key="previous_pm_tab1")
+                    X_pred["previous"] = [previous]
+                if feature == "poutcome":
+                    options = ["success", "failure", "first campaign", "other"]
+                    poutcome = st.selectbox(
+                        "Select poutcome:", options, key="poutcome_pm_tab1")
+                    X_pred["poutcome"] = [poutcome]
+
+            predict_subscription_outcome = st.button(
+                "Predict Subscription Outcome", type="primary", key="predict_subscription_outcome_pm_tab1")
+
+            if predict_subscription_outcome:
+
+                X_pred = pd.DataFrame(X_pred)
+
+                if 'model_1' in locals() or 'model_1' in globals():
+
+                    y_pred = model_1.predict(X_pred)
+
+                    if y_pred == "yes":
+                        st.markdown(
+                            "#### Subscription Outcome: Client will subscribe.")
+                    else:
+                        st.markdown(
+                            "#### Subscription Outcome: Client will not subscribe.")
+
+                else:
+                    st.markdown(
+                        "#### Please build the model before prediction!")
 
     with pm_tab2:
-
-        st.session_state.pm_tab2 = st.session_state.pm_tab2 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -263,45 +373,44 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab2")
 
-        build_model = st.button("Build Model", key="build_model_pm_tab2")
+        build_model = st.button(
+            "Build Model", type="primary", key="build_model_pm_tab2")
 
-        if st.session_state.pm_tab2 == 1:
+        X = bank_marketing_df.drop('outcome', axis=1)
+        y = bank_marketing_df['outcome']
 
-            X = bank_marketing_df.drop('outcome', axis=1)
-            y = bank_marketing_df['outcome']
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size)
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+        numeric_features = ['age', 'balance', 'day',
+                            'duration', 'campaign', 'pdays', 'previous']
+        categorical_features = ['job', 'marital', 'education',
+                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+        numeric_transformer = Pipeline(steps=[
+            ('scaler', StandardScaler())
+        ])
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
+        categorical_transformer = Pipeline(steps=[
+            ('onehot', OneHotEncoder())
+        ])
+
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, numeric_features),
+                ('cat', categorical_transformer, categorical_features)
             ])
 
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
+        model = Pipeline(steps=[
+            ('preprocessor', preprocessor),
+            ('classifier', SVC())
+        ])
 
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
-                ])
+        model.fit(X_train, y_train)
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', SVC())
-            ])
-
-            model.fit(X_train, y_train)
+        st.markdown("#### Predict Subscription Outcome")
 
     with pm_tab3:
-
-        st.session_state.pm_tab3 = st.session_state.pm_tab3 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -312,45 +421,44 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab3")
 
-        build_model = st.button("Build Model", key="build_model_pm_tab3")
+        build_model = st.button(
+            "Build Model", type="primary", key="build_model_pm_tab3")
 
-        if st.session_state.pm_tab3 == 1:
+        X = bank_marketing_df.drop('outcome', axis=1)
+        y = bank_marketing_df['outcome']
 
-            X = bank_marketing_df.drop('outcome', axis=1)
-            y = bank_marketing_df['outcome']
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size)
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+        numeric_features = ['age', 'balance', 'day',
+                            'duration', 'campaign', 'pdays', 'previous']
+        categorical_features = ['job', 'marital', 'education',
+                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+        numeric_transformer = Pipeline(steps=[
+            ('scaler', StandardScaler())
+        ])
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
+        categorical_transformer = Pipeline(steps=[
+            ('onehot', OneHotEncoder())
+        ])
+
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, numeric_features),
+                ('cat', categorical_transformer, categorical_features)
             ])
 
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
+        model = Pipeline(steps=[
+            ('preprocessor', preprocessor),
+            ('classifier', DecisionTreeClassifier())
+        ])
 
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
-                ])
+        model.fit(X_train, y_train)
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', DecisionTreeClassifier())
-            ])
-
-            model.fit(X_train, y_train)
+        st.markdown("#### Predict Subscription Outcome")
 
     with pm_tab4:
-
-        st.session_state.pm_tab4 = st.session_state.pm_tab4 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -361,45 +469,44 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab4")
 
-        build_model = st.button("Build Model", key="build_model_pm_tab4")
+        build_model = st.button(
+            "Build Model", type="primary", key="build_model_pm_tab4")
 
-        if st.session_state.pm_tab4 == 1:
+        X = bank_marketing_df.drop('outcome', axis=1)
+        y = bank_marketing_df['outcome']
 
-            X = bank_marketing_df.drop('outcome', axis=1)
-            y = bank_marketing_df['outcome']
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size)
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+        numeric_features = ['age', 'balance', 'day',
+                            'duration', 'campaign', 'pdays', 'previous']
+        categorical_features = ['job', 'marital', 'education',
+                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+        numeric_transformer = Pipeline(steps=[
+            ('scaler', StandardScaler())
+        ])
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
+        categorical_transformer = Pipeline(steps=[
+            ('onehot', OneHotEncoder())
+        ])
+
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, numeric_features),
+                ('cat', categorical_transformer, categorical_features)
             ])
 
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
+        model = Pipeline(steps=[
+            ('preprocessor', preprocessor),
+            ('classifier', KNeighborsClassifier())
+        ])
 
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
-                ])
+        model.fit(X_train, y_train)
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', KNeighborsClassifier())
-            ])
-
-            model.fit(X_train, y_train)
+        st.markdown("#### Predict Subscription Outcome")
 
     with pm_tab5:
-
-        st.session_state.pm_tab5 = st.session_state.pm_tab5 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -410,38 +517,39 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab5")
 
-        build_model = st.button("Build Model", key="build_model_pm_tab5")
+        build_model = st.button(
+            "Build Model", type="primary", key="build_model_pm_tab5")
 
-        if st.session_state.pm_tab5 == 1:
+        X = bank_marketing_df.drop('outcome', axis=1)
+        y = bank_marketing_df['outcome']
 
-            X = bank_marketing_df.drop('outcome', axis=1)
-            y = bank_marketing_df['outcome']
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=test_size)
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+        numeric_features = ['age', 'balance', 'day',
+                            'duration', 'campaign', 'pdays', 'previous']
+        categorical_features = ['job', 'marital', 'education',
+                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+        numeric_transformer = Pipeline(steps=[
+            ('scaler', StandardScaler())
+        ])
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
+        categorical_transformer = Pipeline(steps=[
+            ('onehot', OneHotEncoder())
+        ])
+
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, numeric_features),
+                ('cat', categorical_transformer, categorical_features)
             ])
 
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
+        model = Pipeline(steps=[
+            ('preprocessor', preprocessor),
+            ('classifier', GaussianNB())
+        ])
 
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
-                ])
+        model.fit(X_train, y_train)
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', GaussianNB())
-            ])
-
-            model.fit(X_train, y_train)
+        st.markdown("#### Predict Subscription Outcome")
