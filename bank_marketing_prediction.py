@@ -164,13 +164,20 @@ with tab3:
 
 with tab4:
 
-    st.markdown("""To predict the subscription outcome of a client, the following 
+    st.markdown("""Our primary objective in this study is to predict whether a client 
+                subscribes to a term deposit or not. Given that our target variable 
+                is a binary variable, the classification models will best suit for 
+                prediction. To predict the subscription outcome, the following 
                 classification models are developed:""")
     st.markdown("1. Logistic Regression")
     st.markdown("2. Support Vector Machine")
     st.markdown("3. Decision Tree")
     st.markdown("4. K-Nearest Neighbours")
     st.markdown("5. Naive Bayes")
+    st.markdown("""Each of the above model is developed in each tab. In each of 
+                the following tabs, an option is provided for users of this application 
+                to develop different models with different hyperparameters for predicting 
+                the subscription outcome.""")
 
     X = bank_marketing_df.drop('outcome', axis=1)
     y = bank_marketing_df['outcome']
