@@ -13,7 +13,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 st.title("Bank Marketing Prediction")
@@ -331,16 +331,30 @@ with tab4:
 
             model.fit(X_train, y_train)
 
+            y_pred = model.predict(X_test)
+            report = classification_report(y_test, y_pred, output_dict=True)
+            report = pd.DataFrame(report)
+            st.markdown("#### Classification Report:")
+            st.table(report)
+
+            st.markdown("#### Confusion Matrix:")
+            cm = confusion_matrix(y_test, y_pred)
+            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
+            fig, ax = plt.subplots(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt="d",
+                        cmap="Blues", linewidths=.5, ax=ax)
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot(fig)
+
             X_pred = pd.DataFrame(X_pred)
-
             y_pred = model.predict(X_pred)
-
             if y_pred == "yes":
                 st.markdown(
-                    "#### Subscription Outcome: Client will subscribe.")
+                    "#### Subscription Outcome: Client will subscribe!!")
             else:
                 st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe.")
+                    "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab2:
 
@@ -486,16 +500,30 @@ with tab4:
 
             model.fit(X_train, y_train)
 
+            y_pred = model.predict(X_test)
+            report = classification_report(y_test, y_pred, output_dict=True)
+            report = pd.DataFrame(report)
+            st.markdown("#### Classification Report:")
+            st.table(report)
+
+            st.markdown("#### Confusion Matrix:")
+            cm = confusion_matrix(y_test, y_pred)
+            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
+            fig, ax = plt.subplots(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt="d",
+                        cmap="Blues", linewidths=.5, ax=ax)
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot(fig)
+
             X_pred = pd.DataFrame(X_pred)
-
             y_pred = model.predict(X_pred)
-
             if y_pred == "yes":
                 st.markdown(
-                    "#### Subscription Outcome: Client will subscribe.")
+                    "#### Subscription Outcome: Client will subscribe!!")
             else:
                 st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe.")
+                    "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab3:
 
@@ -641,16 +669,30 @@ with tab4:
 
             model.fit(X_train, y_train)
 
+            y_pred = model.predict(X_test)
+            report = classification_report(y_test, y_pred, output_dict=True)
+            report = pd.DataFrame(report)
+            st.markdown("#### Classification Report:")
+            st.table(report)
+
+            st.markdown("#### Confusion Matrix:")
+            cm = confusion_matrix(y_test, y_pred)
+            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
+            fig, ax = plt.subplots(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt="d",
+                        cmap="Blues", linewidths=.5, ax=ax)
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot(fig)
+
             X_pred = pd.DataFrame(X_pred)
-
             y_pred = model.predict(X_pred)
-
             if y_pred == "yes":
                 st.markdown(
-                    "#### Subscription Outcome: Client will subscribe.")
+                    "#### Subscription Outcome: Client will subscribe!!")
             else:
                 st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe.")
+                    "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab4:
 
@@ -796,16 +838,30 @@ with tab4:
 
             model.fit(X_train, y_train)
 
+            y_pred = model.predict(X_test)
+            report = classification_report(y_test, y_pred, output_dict=True)
+            report = pd.DataFrame(report)
+            st.markdown("#### Classification Report:")
+            st.table(report)
+
+            st.markdown("#### Confusion Matrix:")
+            cm = confusion_matrix(y_test, y_pred)
+            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
+            fig, ax = plt.subplots(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt="d",
+                        cmap="Blues", linewidths=.5, ax=ax)
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot(fig)
+
             X_pred = pd.DataFrame(X_pred)
-
             y_pred = model.predict(X_pred)
-
             if y_pred == "yes":
                 st.markdown(
-                    "#### Subscription Outcome: Client will subscribe.")
+                    "#### Subscription Outcome: Client will subscribe!!")
             else:
                 st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe.")
+                    "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab5:
 
@@ -951,13 +1007,27 @@ with tab4:
 
             model.fit(X_train, y_train)
 
+            y_pred = model.predict(X_test)
+            report = classification_report(y_test, y_pred, output_dict=True)
+            report = pd.DataFrame(report)
+            st.markdown("#### Classification Report:")
+            st.table(report)
+
+            st.markdown("#### Confusion Matrix:")
+            cm = confusion_matrix(y_test, y_pred)
+            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
+            fig, ax = plt.subplots(figsize=(8, 6))
+            sns.heatmap(cm, annot=True, fmt="d",
+                        cmap="Blues", linewidths=.5, ax=ax)
+            plt.xlabel("Predicted")
+            plt.ylabel("Actual")
+            st.pyplot(fig)
+
             X_pred = pd.DataFrame(X_pred)
-
             y_pred = model.predict(X_pred)
-
             if y_pred == "yes":
                 st.markdown(
-                    "#### Subscription Outcome: Client will subscribe.")
+                    "#### Subscription Outcome: Client will subscribe!!")
             else:
                 st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe.")
+                    "#### Subscription Outcome: Client will not subscribe!!")
