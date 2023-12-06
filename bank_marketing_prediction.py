@@ -6,10 +6,29 @@ import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
+
+if 'pm_tab1' not in st.session_state:
+    st.session_state.pm_tab1 = 0
+
+if 'pm_tab2' not in st.session_state:
+    st.session_state.pm_tab2 = 0
+
+if 'pm_tab3' not in st.session_state:
+    st.session_state.pm_tab3 = 0
+
+if 'pm_tab4' not in st.session_state:
+    st.session_state.pm_tab4 = 0
+
+if 'pm_tab5' not in st.session_state:
+    st.session_state.pm_tab5 = 0
 
 st.title("Bank Marketing Prediction")
 
@@ -184,7 +203,9 @@ with tab4:
 
     with pm_tab1:
 
-        st.markdown("#### Choose Hyperparameters and Develop Model")
+        st.session_state.pm_tab1 = st.session_state.pm_tab1 + 1
+
+        st.markdown("#### Choose Hyperparameters and Build Model")
 
         features = st.multiselect(
             "Select features", bank_marketing_df.columns[0:16],
@@ -193,44 +214,45 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab1")
 
-        X = bank_marketing_df.drop('outcome', axis=1)
-        y = bank_marketing_df['outcome']
+        build_model = st.button("Build Model", key="build_model_pm_tab1")
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=42)
+        if st.session_state.pm_tab1 == 1:
 
-        numeric_features = ['age', 'balance', 'day',
-                            'duration', 'campaign', 'pdays', 'previous']
-        categorical_features = ['job', 'marital', 'education',
-                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+            X = bank_marketing_df.drop('outcome', axis=1)
+            y = bank_marketing_df['outcome']
 
-        numeric_transformer = Pipeline(steps=[
-            ('scaler', StandardScaler())
-        ])
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size)
 
-        categorical_transformer = Pipeline(steps=[
-            ('onehot', OneHotEncoder())
-        ])
+            numeric_features = ['age', 'balance', 'day',
+                                'duration', 'campaign', 'pdays', 'previous']
+            categorical_features = ['job', 'marital', 'education',
+                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-        preprocessor = ColumnTransformer(
-            transformers=[
-                ('num', numeric_transformer, numeric_features),
-                ('cat', categorical_transformer, categorical_features)
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
             ])
 
-        model = Pipeline(steps=[
-            ('preprocessor', preprocessor),
-            ('classifier', LogisticRegression())
-        ])
+            categorical_transformer = Pipeline(steps=[
+                ('onehot', OneHotEncoder())
+            ])
 
-        model.fit(X_train, y_train)
+            preprocessor = ColumnTransformer(
+                transformers=[
+                    ('num', numeric_transformer, numeric_features),
+                    ('cat', categorical_transformer, categorical_features)
+                ])
 
-        y_pred = model.predict(X_test)
+            model = Pipeline(steps=[
+                ('preprocessor', preprocessor),
+                ('classifier', LogisticRegression())
+            ])
 
-        print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
-        print(classification_report(y_test, y_pred))
+            model.fit(X_train, y_train)
 
     with pm_tab2:
+
+        st.session_state.pm_tab2 = st.session_state.pm_tab2 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -241,7 +263,45 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab2")
 
+        build_model = st.button("Build Model", key="build_model_pm_tab2")
+
+        if st.session_state.pm_tab2 == 1:
+
+            X = bank_marketing_df.drop('outcome', axis=1)
+            y = bank_marketing_df['outcome']
+
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size)
+
+            numeric_features = ['age', 'balance', 'day',
+                                'duration', 'campaign', 'pdays', 'previous']
+            categorical_features = ['job', 'marital', 'education',
+                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
+            ])
+
+            categorical_transformer = Pipeline(steps=[
+                ('onehot', OneHotEncoder())
+            ])
+
+            preprocessor = ColumnTransformer(
+                transformers=[
+                    ('num', numeric_transformer, numeric_features),
+                    ('cat', categorical_transformer, categorical_features)
+                ])
+
+            model = Pipeline(steps=[
+                ('preprocessor', preprocessor),
+                ('classifier', SVC())
+            ])
+
+            model.fit(X_train, y_train)
+
     with pm_tab3:
+
+        st.session_state.pm_tab3 = st.session_state.pm_tab3 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -252,7 +312,45 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab3")
 
+        build_model = st.button("Build Model", key="build_model_pm_tab3")
+
+        if st.session_state.pm_tab3 == 1:
+
+            X = bank_marketing_df.drop('outcome', axis=1)
+            y = bank_marketing_df['outcome']
+
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size)
+
+            numeric_features = ['age', 'balance', 'day',
+                                'duration', 'campaign', 'pdays', 'previous']
+            categorical_features = ['job', 'marital', 'education',
+                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
+            ])
+
+            categorical_transformer = Pipeline(steps=[
+                ('onehot', OneHotEncoder())
+            ])
+
+            preprocessor = ColumnTransformer(
+                transformers=[
+                    ('num', numeric_transformer, numeric_features),
+                    ('cat', categorical_transformer, categorical_features)
+                ])
+
+            model = Pipeline(steps=[
+                ('preprocessor', preprocessor),
+                ('classifier', DecisionTreeClassifier())
+            ])
+
+            model.fit(X_train, y_train)
+
     with pm_tab4:
+
+        st.session_state.pm_tab4 = st.session_state.pm_tab4 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -263,7 +361,45 @@ with tab4:
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab4")
 
+        build_model = st.button("Build Model", key="build_model_pm_tab4")
+
+        if st.session_state.pm_tab4 == 1:
+
+            X = bank_marketing_df.drop('outcome', axis=1)
+            y = bank_marketing_df['outcome']
+
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size)
+
+            numeric_features = ['age', 'balance', 'day',
+                                'duration', 'campaign', 'pdays', 'previous']
+            categorical_features = ['job', 'marital', 'education',
+                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
+            ])
+
+            categorical_transformer = Pipeline(steps=[
+                ('onehot', OneHotEncoder())
+            ])
+
+            preprocessor = ColumnTransformer(
+                transformers=[
+                    ('num', numeric_transformer, numeric_features),
+                    ('cat', categorical_transformer, categorical_features)
+                ])
+
+            model = Pipeline(steps=[
+                ('preprocessor', preprocessor),
+                ('classifier', KNeighborsClassifier())
+            ])
+
+            model.fit(X_train, y_train)
+
     with pm_tab5:
+
+        st.session_state.pm_tab5 = st.session_state.pm_tab5 + 1
 
         st.markdown("#### Choose Hyperparameters and Develop Model")
 
@@ -273,3 +409,39 @@ with tab4:
             key="features_pm_tab5")
         test_size = st.slider("Select test size", 0.1,
                               0.9, 0.2, 0.1, key="test_size_pm_tab5")
+
+        build_model = st.button("Build Model", key="build_model_pm_tab5")
+
+        if st.session_state.pm_tab5 == 1:
+
+            X = bank_marketing_df.drop('outcome', axis=1)
+            y = bank_marketing_df['outcome']
+
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=test_size)
+
+            numeric_features = ['age', 'balance', 'day',
+                                'duration', 'campaign', 'pdays', 'previous']
+            categorical_features = ['job', 'marital', 'education',
+                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+
+            numeric_transformer = Pipeline(steps=[
+                ('scaler', StandardScaler())
+            ])
+
+            categorical_transformer = Pipeline(steps=[
+                ('onehot', OneHotEncoder())
+            ])
+
+            preprocessor = ColumnTransformer(
+                transformers=[
+                    ('num', numeric_transformer, numeric_features),
+                    ('cat', categorical_transformer, categorical_features)
+                ])
+
+            model = Pipeline(steps=[
+                ('preprocessor', preprocessor),
+                ('classifier', GaussianNB())
+            ])
+
+            model.fit(X_train, y_train)
