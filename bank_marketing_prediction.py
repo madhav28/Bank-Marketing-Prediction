@@ -184,11 +184,20 @@ with tab4:
 
     with pm_tab1:
 
+        st.markdown("#### Choose Hyperparameters and Develop Model")
+
+        features = st.multiselect(
+            "Select features", bank_marketing_df.columns[0:16],
+            default=np.array(bank_marketing_df.columns[0:16]),
+            key="features_pm_tab1")
+        test_size = st.slider("Select test size", 0.1,
+                              0.9, 0.2, 0.1, key="test_size_pm_tab1")
+
         X = bank_marketing_df.drop('outcome', axis=1)
         y = bank_marketing_df['outcome']
 
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, random_state=42)
+            X, y, test_size=test_size, random_state=42)
 
         numeric_features = ['age', 'balance', 'day',
                             'duration', 'campaign', 'pdays', 'previous']
@@ -220,3 +229,47 @@ with tab4:
 
         print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
         print(classification_report(y_test, y_pred))
+
+    with pm_tab2:
+
+        st.markdown("#### Choose Hyperparameters and Develop Model")
+
+        features = st.multiselect(
+            "Select features", bank_marketing_df.columns[0:16],
+            default=np.array(bank_marketing_df.columns[0:16]),
+            key="features_pm_tab2")
+        test_size = st.slider("Select test size", 0.1,
+                              0.9, 0.2, 0.1, key="test_size_pm_tab2")
+
+    with pm_tab3:
+
+        st.markdown("#### Choose Hyperparameters and Develop Model")
+
+        features = st.multiselect(
+            "Select features", bank_marketing_df.columns[0:16],
+            default=np.array(bank_marketing_df.columns[0:16]),
+            key="features_pm_tab3")
+        test_size = st.slider("Select test size", 0.1,
+                              0.9, 0.2, 0.1, key="test_size_pm_tab3")
+
+    with pm_tab4:
+
+        st.markdown("#### Choose Hyperparameters and Develop Model")
+
+        features = st.multiselect(
+            "Select features", bank_marketing_df.columns[0:16],
+            default=np.array(bank_marketing_df.columns[0:16]),
+            key="features_pm_tab4")
+        test_size = st.slider("Select test size", 0.1,
+                              0.9, 0.2, 0.1, key="test_size_pm_tab4")
+
+    with pm_tab5:
+
+        st.markdown("#### Choose Hyperparameters and Develop Model")
+
+        features = st.multiselect(
+            "Select features", bank_marketing_df.columns[0:16],
+            default=np.array(bank_marketing_df.columns[0:16]),
+            key="features_pm_tab5")
+        test_size = st.slider("Select test size", 0.1,
+                              0.9, 0.2, 0.1, key="test_size_pm_tab5")
