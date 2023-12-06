@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -1031,3 +1032,61 @@ with tab4:
             else:
                 st.markdown(
                     "#### Subscription Outcome: Client will not subscribe!!")
+
+    with tab5:
+        st.markdown("""Our primary goal in this study is to predict whether a client 
+                    will subscribe to a term deposit or not. We developed five kinds of models 
+                    to achieve this. To determine which is the best kind of model, we have 
+                    a lot of performance metrics like accuracy, precision, f1-score, etc. for 
+                    comparion. In our case, accuracy is a bad metric for comparison because 
+                    of the disproportionate number of negative classes against positive classes. 
+                    Rather, precision of positive class prediction is the best metric for 
+                    model comparison. This is because, with higher precision, bank would be 
+                    able to optimally allocate its resources on clients who are most likely 
+                    to subscribe to a term deposit.""")
+
+        st.markdown("##### ❌ metric for model comparison")
+        data = {"Model": ["Logistic Regression", "Support Vector Machine",
+                          "Decision Tree", "K-Nearest Neighbours", "Naive Bayes"],
+                "Accuracy": [0.90, 0.90, 0.88, 0.89, 0.85]}
+        df = pd.DataFrame(data)
+        fig = px.bar(df, x="Accuracy", y="Model",
+                     title="Accuracy for various models", labels={"y": "Values"})
+        st.plotly_chart(fig)
+
+        st.markdown("##### ✅ metric for model comparison")
+        data = {"Model": ["Logistic Regression", "Support Vector Machine",
+                          "Decision Tree", "K-Nearest Neighbours", "Naive Bayes"],
+                "Precision of Yes": [0.65, 0.66, 0.46, 0.59, 0.39]}
+        df = pd.DataFrame(data)
+        fig = px.bar(df, x="Precision of Yes", y="Model",
+                     title="Precision of Yes for various models", labels={"y": "Values"})
+        st.plotly_chart(fig)
+
+        st.markdown("""We can see that the accuracy of most of the models is very high and close 
+                    to 90%. This is because only a small fraction of all the clients actually 
+                    subscribe to a term deposit. Thereby, even with all No's as our prediction, 
+                    we get high accuracy scores for our models. Whereas, if we see the precision 
+                    scores for the models they are different for different models and highest 
+                    precision is around 0.66. This high precision is achieved by Support Vector 
+                    Classifier. Hence, out of all the classifiers, Support Vector Classifier is 
+                    the best estimator to solve this problem.""")
+
+    with tab6:
+        st.markdown(
+            "Currently pursuing Master's in Data Science at Michigan State University.")
+        st.markdown("**Coursework:**")
+        st.markdown("CSE482, STT810, CMSE830")
+        st.markdown(
+            "**Previous work experience:**")
+        st.markdown(
+            "* Technology Analyst at Citi for 2.5 years.")
+        st.markdown("* Data Scientist at Gyan Data for 1.5 years.")
+        st.markdown(
+            "**Previous education:**")
+        st.markdown(
+            "Bachelor of Technology in Chemical Engineering, IIT Madras.")
+        st.markdown("**Research Interests:**")
+        st.markdown("Data-driven identificaiton of ODE's and PDE's.")
+        st.markdown("**Hobbies:**")
+        st.markdown("Chess, Cricket and Football.")
