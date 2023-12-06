@@ -179,39 +179,44 @@ with tab4:
                 to develop different models with different hyperparameters for predicting 
                 the subscription outcome.""")
 
-    X = bank_marketing_df.drop('outcome', axis=1)
-    y = bank_marketing_df['outcome']
+    pm_tab1, pm_tab2, pm_tab3, pm_tab4, pm_tab5 = st.tabs(
+        ['Logistic Regression', 'Support Vector Machine', 'Decision Tree', 'K-Nearest Neighbours', 'Naive Bayes'])
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42)
+    with pm_tab1:
 
-    numeric_features = ['age', 'balance', 'day',
-                        'duration', 'campaign', 'pdays', 'previous']
-    categorical_features = ['job', 'marital', 'education',
-                            'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+        X = bank_marketing_df.drop('outcome', axis=1)
+        y = bank_marketing_df['outcome']
 
-    numeric_transformer = Pipeline(steps=[
-        ('scaler', StandardScaler())
-    ])
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2, random_state=42)
 
-    categorical_transformer = Pipeline(steps=[
-        ('onehot', OneHotEncoder())
-    ])
+        numeric_features = ['age', 'balance', 'day',
+                            'duration', 'campaign', 'pdays', 'previous']
+        categorical_features = ['job', 'marital', 'education',
+                                'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
 
-    preprocessor = ColumnTransformer(
-        transformers=[
-            ('num', numeric_transformer, numeric_features),
-            ('cat', categorical_transformer, categorical_features)
+        numeric_transformer = Pipeline(steps=[
+            ('scaler', StandardScaler())
         ])
 
-    model = Pipeline(steps=[
-        ('preprocessor', preprocessor),
-        ('classifier', LogisticRegression())
-    ])
+        categorical_transformer = Pipeline(steps=[
+            ('onehot', OneHotEncoder())
+        ])
 
-    model.fit(X_train, y_train)
+        preprocessor = ColumnTransformer(
+            transformers=[
+                ('num', numeric_transformer, numeric_features),
+                ('cat', categorical_transformer, categorical_features)
+            ])
 
-    y_pred = model.predict(X_test)
+        model = Pipeline(steps=[
+            ('preprocessor', preprocessor),
+            ('classifier', LogisticRegression())
+        ])
 
-    print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
-    print(classification_report(y_test, y_pred))
+        model.fit(X_train, y_train)
+
+        y_pred = model.predict(X_test)
+
+        print(f'Accuracy: {accuracy_score(y_test, y_pred)}')
+        print(classification_report(y_test, y_pred))
