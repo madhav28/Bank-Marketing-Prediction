@@ -186,7 +186,7 @@ with tab4:
                 prediction. To predict the subscription outcome, the following 
                 classification models are developed:""")
     st.markdown("1. Logistic Regression")
-    st.markdown("2. Support Vector Machine")
+    st.markdown("2. Support Vector Classifier")
     st.markdown("3. Decision Tree")
     st.markdown("4. K-Nearest Neighbours")
     st.markdown("5. Naive Bayes")
@@ -195,7 +195,7 @@ with tab4:
                 to develop different models with different features for predicting the subscription outcome.""")
 
     pm_tab1, pm_tab2, pm_tab3, pm_tab4, pm_tab5 = st.tabs(
-        ['Logistic Regression', 'Support Vector Machine', 'Decision Tree', 'K-Nearest Neighbours', 'Naive Bayes'])
+        ['Logistic Regression', 'Support Vector Classifier', 'Decision Tree', 'K-Nearest Neighbours', 'Naive Bayes'])
 
     with pm_tab1:
 
@@ -373,7 +373,7 @@ with tab4:
     with pm_tab2:
 
         st.markdown("""Please enter the model details and prediction details in order to build the model and 
-                    predict the subscription outcome using Support Vector Machine. The data from the **Model Details** 
+                    predict the subscription outcome using Support Vector Classifier. The data from the **Model Details** 
                     section will be used for building the model and the data from the **Prediction Details** section 
                     will be used for predicting the subscription outcome.""")
         st.markdown("#### Model Details")
