@@ -70,7 +70,7 @@ with tab2:
     st.markdown("**Target User:**")
     st.markdown("""This application is intended for bank analysts who would like to build and 
                 analyse different kinds of classification models for predicting subscription 
-                outcomes. After a model is built, a comprehensive report of the model is shared with the user. 
+                outcomes. After a model is built, a comprehensive report of the model will be shared with the user. 
                 Using this information, users can make an informed decision on whether to 
                 use or discard the model based on their discretion.""")
 
@@ -168,7 +168,8 @@ with tab3:
 
     st.pyplot(figure)
 
-    st.markdown("Based on the above plots, the following outliers are removed:")
+    st.markdown("""Based on the above plots, the following outliers are removed 
+                because they are not realistic values in the real world:""")
     st.markdown("* duration > 3000")
     st.markdown("* campaign > 40")
     st.markdown("* previous > 40")
