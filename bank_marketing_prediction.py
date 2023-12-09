@@ -57,8 +57,8 @@ with tab1:
 
     st.table(feature_description_df)
 
-    st.markdown("**Exploratory Data Analysis:**")
-    st.markdown("https://bank-marketing-analysis.streamlit.app/")
+    st.markdown(
+        "**Exploratory Data Analysis: https://bank-marketing-analysis.streamlit.app/**")
 
 with tab2:
     st.markdown("**Objectives of the application:**")
