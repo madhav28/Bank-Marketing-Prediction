@@ -294,8 +294,9 @@ with tab4:
                     "Select poutcome:", options, key="poutcome_pm_tab1")
                 X_pred["poutcome"] = [poutcome]
 
-        build_model_predict_subscription_outcome = st.button(
-            "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab1")
+        if len(features) > 0:
+            build_model_predict_subscription_outcome = st.button(
+                "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab1")
 
         if build_model_predict_subscription_outcome:
 
@@ -463,8 +464,9 @@ with tab4:
                     "Select poutcome:", options, key="poutcome_pm_tab2")
                 X_pred["poutcome"] = [poutcome]
 
-        build_model_predict_subscription_outcome = st.button(
-            "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab2")
+        if len(features) > 0:
+            build_model_predict_subscription_outcome = st.button(
+                "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab2")
 
         if build_model_predict_subscription_outcome:
 
@@ -632,8 +634,9 @@ with tab4:
                     "Select poutcome:", options, key="poutcome_pm_tab3")
                 X_pred["poutcome"] = [poutcome]
 
-        build_model_predict_subscription_outcome = st.button(
-            "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab3")
+        if len(features) > 0:
+            build_model_predict_subscription_outcome = st.button(
+                "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab3")
 
         if build_model_predict_subscription_outcome:
 
@@ -801,8 +804,9 @@ with tab4:
                     "Select poutcome:", options, key="poutcome_pm_tab4")
                 X_pred["poutcome"] = [poutcome]
 
-        build_model_predict_subscription_outcome = st.button(
-            "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab4")
+        if len(features) > 0:
+            build_model_predict_subscription_outcome = st.button(
+                "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab4")
 
         if build_model_predict_subscription_outcome:
 
@@ -970,8 +974,9 @@ with tab4:
                     "Select poutcome:", options, key="poutcome_pm_tab5")
                 X_pred["poutcome"] = [poutcome]
 
-        build_model_predict_subscription_outcome = st.button(
-            "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab5")
+        if len(features) > 0:
+            build_model_predict_subscription_outcome = st.button(
+                "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab5")
 
         if build_model_predict_subscription_outcome:
 
