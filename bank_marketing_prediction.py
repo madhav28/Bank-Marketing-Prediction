@@ -181,7 +181,7 @@ with tab4:
 
     st.markdown("""Our primary objective in this study is to predict whether a client 
                 subscribes to a term deposit or not. Given that our target variable 
-                is a binary variable, the classification models will best suit for 
+                is a binary variable, the classification models will best suit for the 
                 prediction. To predict the subscription outcome, the following 
                 classification models are developed:""")
     st.markdown("1. Logistic Regression")
