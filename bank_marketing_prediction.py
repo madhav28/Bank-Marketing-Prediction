@@ -298,74 +298,76 @@ with tab4:
             build_model_predict_subscription_outcome = st.button(
                 "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab1")
 
-        if build_model_predict_subscription_outcome:
+            if build_model_predict_subscription_outcome:
 
-            X = bank_marketing_df[features]
-            y = bank_marketing_df['outcome']
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            numeric_features_temp = []
-            for feature in numeric_features:
-                if feature in features:
-                    numeric_features_temp.append(feature)
-            numeric_features = numeric_features_temp
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
-            categorical_features_temp = []
-            for feature in categorical_features:
-                if feature in features:
-                    categorical_features_temp.append(feature)
-            categorical_features = categorical_features_temp
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
-
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', LogisticRegression())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
 
-            y_pred = model.predict(X_test)
-            report = classification_report(y_test, y_pred, output_dict=True)
-            report = pd.DataFrame(report)
-            st.markdown("#### Classification Report:")
-            st.table(report)
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', LogisticRegression())
+                ])
 
-            st.markdown("#### Confusion Matrix:")
-            cm = confusion_matrix(y_test, y_pred)
-            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt="d",
-                        cmap="Blues", linewidths=.5, ax=ax)
-            plt.xlabel("Predicted")
-            plt.ylabel("Actual")
-            st.pyplot(fig)
+                model.fit(X_train, y_train)
 
-            X_pred = pd.DataFrame(X_pred)
-            y_pred = model.predict(X_pred)
-            if y_pred == "yes":
-                st.markdown(
-                    "#### Subscription Outcome: Client will subscribe!!")
-            else:
-                st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe!!")
+                y_pred = model.predict(X_test)
+                report = classification_report(
+                    y_test, y_pred, output_dict=True)
+                report = pd.DataFrame(report)
+                st.markdown("#### Classification Report:")
+                st.table(report)
+
+                st.markdown("#### Confusion Matrix:")
+                cm = confusion_matrix(y_test, y_pred)
+                cm = pd.DataFrame(
+                    cm, index=["No", "Yes"], columns=["No", "Yes"])
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt="d",
+                            cmap="Blues", linewidths=.5, ax=ax)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                st.pyplot(fig)
+
+                X_pred = pd.DataFrame(X_pred)
+                y_pred = model.predict(X_pred)
+                if y_pred == "yes":
+                    st.markdown(
+                        "#### Subscription Outcome: Client will subscribe!!")
+                else:
+                    st.markdown(
+                        "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab2:
 
@@ -468,74 +470,76 @@ with tab4:
             build_model_predict_subscription_outcome = st.button(
                 "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab2")
 
-        if build_model_predict_subscription_outcome:
+            if build_model_predict_subscription_outcome:
 
-            X = bank_marketing_df[features]
-            y = bank_marketing_df['outcome']
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            numeric_features_temp = []
-            for feature in numeric_features:
-                if feature in features:
-                    numeric_features_temp.append(feature)
-            numeric_features = numeric_features_temp
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
-            categorical_features_temp = []
-            for feature in categorical_features:
-                if feature in features:
-                    categorical_features_temp.append(feature)
-            categorical_features = categorical_features_temp
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
-
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', SVC())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
 
-            y_pred = model.predict(X_test)
-            report = classification_report(y_test, y_pred, output_dict=True)
-            report = pd.DataFrame(report)
-            st.markdown("#### Classification Report:")
-            st.table(report)
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', SVC())
+                ])
 
-            st.markdown("#### Confusion Matrix:")
-            cm = confusion_matrix(y_test, y_pred)
-            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt="d",
-                        cmap="Blues", linewidths=.5, ax=ax)
-            plt.xlabel("Predicted")
-            plt.ylabel("Actual")
-            st.pyplot(fig)
+                model.fit(X_train, y_train)
 
-            X_pred = pd.DataFrame(X_pred)
-            y_pred = model.predict(X_pred)
-            if y_pred == "yes":
-                st.markdown(
-                    "#### Subscription Outcome: Client will subscribe!!")
-            else:
-                st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe!!")
+                y_pred = model.predict(X_test)
+                report = classification_report(
+                    y_test, y_pred, output_dict=True)
+                report = pd.DataFrame(report)
+                st.markdown("#### Classification Report:")
+                st.table(report)
+
+                st.markdown("#### Confusion Matrix:")
+                cm = confusion_matrix(y_test, y_pred)
+                cm = pd.DataFrame(
+                    cm, index=["No", "Yes"], columns=["No", "Yes"])
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt="d",
+                            cmap="Blues", linewidths=.5, ax=ax)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                st.pyplot(fig)
+
+                X_pred = pd.DataFrame(X_pred)
+                y_pred = model.predict(X_pred)
+                if y_pred == "yes":
+                    st.markdown(
+                        "#### Subscription Outcome: Client will subscribe!!")
+                else:
+                    st.markdown(
+                        "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab3:
 
@@ -638,74 +642,76 @@ with tab4:
             build_model_predict_subscription_outcome = st.button(
                 "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab3")
 
-        if build_model_predict_subscription_outcome:
+            if build_model_predict_subscription_outcome:
 
-            X = bank_marketing_df[features]
-            y = bank_marketing_df['outcome']
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            numeric_features_temp = []
-            for feature in numeric_features:
-                if feature in features:
-                    numeric_features_temp.append(feature)
-            numeric_features = numeric_features_temp
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
-            categorical_features_temp = []
-            for feature in categorical_features:
-                if feature in features:
-                    categorical_features_temp.append(feature)
-            categorical_features = categorical_features_temp
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
-
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', DecisionTreeClassifier())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
 
-            y_pred = model.predict(X_test)
-            report = classification_report(y_test, y_pred, output_dict=True)
-            report = pd.DataFrame(report)
-            st.markdown("#### Classification Report:")
-            st.table(report)
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', DecisionTreeClassifier())
+                ])
 
-            st.markdown("#### Confusion Matrix:")
-            cm = confusion_matrix(y_test, y_pred)
-            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt="d",
-                        cmap="Blues", linewidths=.5, ax=ax)
-            plt.xlabel("Predicted")
-            plt.ylabel("Actual")
-            st.pyplot(fig)
+                model.fit(X_train, y_train)
 
-            X_pred = pd.DataFrame(X_pred)
-            y_pred = model.predict(X_pred)
-            if y_pred == "yes":
-                st.markdown(
-                    "#### Subscription Outcome: Client will subscribe!!")
-            else:
-                st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe!!")
+                y_pred = model.predict(X_test)
+                report = classification_report(
+                    y_test, y_pred, output_dict=True)
+                report = pd.DataFrame(report)
+                st.markdown("#### Classification Report:")
+                st.table(report)
+
+                st.markdown("#### Confusion Matrix:")
+                cm = confusion_matrix(y_test, y_pred)
+                cm = pd.DataFrame(
+                    cm, index=["No", "Yes"], columns=["No", "Yes"])
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt="d",
+                            cmap="Blues", linewidths=.5, ax=ax)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                st.pyplot(fig)
+
+                X_pred = pd.DataFrame(X_pred)
+                y_pred = model.predict(X_pred)
+                if y_pred == "yes":
+                    st.markdown(
+                        "#### Subscription Outcome: Client will subscribe!!")
+                else:
+                    st.markdown(
+                        "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab4:
 
@@ -808,74 +814,76 @@ with tab4:
             build_model_predict_subscription_outcome = st.button(
                 "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab4")
 
-        if build_model_predict_subscription_outcome:
+            if build_model_predict_subscription_outcome:
 
-            X = bank_marketing_df[features]
-            y = bank_marketing_df['outcome']
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            numeric_features_temp = []
-            for feature in numeric_features:
-                if feature in features:
-                    numeric_features_temp.append(feature)
-            numeric_features = numeric_features_temp
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
-            categorical_features_temp = []
-            for feature in categorical_features:
-                if feature in features:
-                    categorical_features_temp.append(feature)
-            categorical_features = categorical_features_temp
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
-
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', KNeighborsClassifier())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
 
-            y_pred = model.predict(X_test)
-            report = classification_report(y_test, y_pred, output_dict=True)
-            report = pd.DataFrame(report)
-            st.markdown("#### Classification Report:")
-            st.table(report)
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', KNeighborsClassifier())
+                ])
 
-            st.markdown("#### Confusion Matrix:")
-            cm = confusion_matrix(y_test, y_pred)
-            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt="d",
-                        cmap="Blues", linewidths=.5, ax=ax)
-            plt.xlabel("Predicted")
-            plt.ylabel("Actual")
-            st.pyplot(fig)
+                model.fit(X_train, y_train)
 
-            X_pred = pd.DataFrame(X_pred)
-            y_pred = model.predict(X_pred)
-            if y_pred == "yes":
-                st.markdown(
-                    "#### Subscription Outcome: Client will subscribe!!")
-            else:
-                st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe!!")
+                y_pred = model.predict(X_test)
+                report = classification_report(
+                    y_test, y_pred, output_dict=True)
+                report = pd.DataFrame(report)
+                st.markdown("#### Classification Report:")
+                st.table(report)
+
+                st.markdown("#### Confusion Matrix:")
+                cm = confusion_matrix(y_test, y_pred)
+                cm = pd.DataFrame(
+                    cm, index=["No", "Yes"], columns=["No", "Yes"])
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt="d",
+                            cmap="Blues", linewidths=.5, ax=ax)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                st.pyplot(fig)
+
+                X_pred = pd.DataFrame(X_pred)
+                y_pred = model.predict(X_pred)
+                if y_pred == "yes":
+                    st.markdown(
+                        "#### Subscription Outcome: Client will subscribe!!")
+                else:
+                    st.markdown(
+                        "#### Subscription Outcome: Client will not subscribe!!")
 
     with pm_tab5:
 
@@ -978,74 +986,76 @@ with tab4:
             build_model_predict_subscription_outcome = st.button(
                 "Build Model and Predict Subscription Outcome", type="primary", key="build_model_predict_subscription_outcome_pm_tab5")
 
-        if build_model_predict_subscription_outcome:
+            if build_model_predict_subscription_outcome:
 
-            X = bank_marketing_df[features]
-            y = bank_marketing_df['outcome']
+                X = bank_marketing_df[features]
+                y = bank_marketing_df['outcome']
 
-            X_train, X_test, y_train, y_test = train_test_split(
-                X, y, test_size=test_size)
+                X_train, X_test, y_train, y_test = train_test_split(
+                    X, y, test_size=test_size)
 
-            numeric_features = ['age', 'balance', 'day',
-                                'duration', 'campaign', 'pdays', 'previous']
-            numeric_features_temp = []
-            for feature in numeric_features:
-                if feature in features:
-                    numeric_features_temp.append(feature)
-            numeric_features = numeric_features_temp
-            categorical_features = ['job', 'marital', 'education',
-                                    'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
-            categorical_features_temp = []
-            for feature in categorical_features:
-                if feature in features:
-                    categorical_features_temp.append(feature)
-            categorical_features = categorical_features_temp
+                numeric_features = ['age', 'balance', 'day',
+                                    'duration', 'campaign', 'pdays', 'previous']
+                numeric_features_temp = []
+                for feature in numeric_features:
+                    if feature in features:
+                        numeric_features_temp.append(feature)
+                numeric_features = numeric_features_temp
+                categorical_features = ['job', 'marital', 'education',
+                                        'default', 'housing', 'loan', 'contact', 'month', 'poutcome']
+                categorical_features_temp = []
+                for feature in categorical_features:
+                    if feature in features:
+                        categorical_features_temp.append(feature)
+                categorical_features = categorical_features_temp
 
-            numeric_transformer = Pipeline(steps=[
-                ('scaler', StandardScaler())
-            ])
-
-            categorical_transformer = Pipeline(steps=[
-                ('onehot', OneHotEncoder())
-            ])
-
-            preprocessor = ColumnTransformer(
-                transformers=[
-                    ('num', numeric_transformer, numeric_features),
-                    ('cat', categorical_transformer, categorical_features)
+                numeric_transformer = Pipeline(steps=[
+                    ('scaler', StandardScaler())
                 ])
 
-            model = Pipeline(steps=[
-                ('preprocessor', preprocessor),
-                ('classifier', GaussianNB())
-            ])
+                categorical_transformer = Pipeline(steps=[
+                    ('onehot', OneHotEncoder())
+                ])
 
-            model.fit(X_train, y_train)
+                preprocessor = ColumnTransformer(
+                    transformers=[
+                        ('num', numeric_transformer, numeric_features),
+                        ('cat', categorical_transformer, categorical_features)
+                    ])
 
-            y_pred = model.predict(X_test)
-            report = classification_report(y_test, y_pred, output_dict=True)
-            report = pd.DataFrame(report)
-            st.markdown("#### Classification Report:")
-            st.table(report)
+                model = Pipeline(steps=[
+                    ('preprocessor', preprocessor),
+                    ('classifier', GaussianNB())
+                ])
 
-            st.markdown("#### Confusion Matrix:")
-            cm = confusion_matrix(y_test, y_pred)
-            cm = pd.DataFrame(cm, index=["No", "Yes"], columns=["No", "Yes"])
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt="d",
-                        cmap="Blues", linewidths=.5, ax=ax)
-            plt.xlabel("Predicted")
-            plt.ylabel("Actual")
-            st.pyplot(fig)
+                model.fit(X_train, y_train)
 
-            X_pred = pd.DataFrame(X_pred)
-            y_pred = model.predict(X_pred)
-            if y_pred == "yes":
-                st.markdown(
-                    "#### Subscription Outcome: Client will subscribe!!")
-            else:
-                st.markdown(
-                    "#### Subscription Outcome: Client will not subscribe!!")
+                y_pred = model.predict(X_test)
+                report = classification_report(
+                    y_test, y_pred, output_dict=True)
+                report = pd.DataFrame(report)
+                st.markdown("#### Classification Report:")
+                st.table(report)
+
+                st.markdown("#### Confusion Matrix:")
+                cm = confusion_matrix(y_test, y_pred)
+                cm = pd.DataFrame(
+                    cm, index=["No", "Yes"], columns=["No", "Yes"])
+                fig, ax = plt.subplots(figsize=(8, 6))
+                sns.heatmap(cm, annot=True, fmt="d",
+                            cmap="Blues", linewidths=.5, ax=ax)
+                plt.xlabel("Predicted")
+                plt.ylabel("Actual")
+                st.pyplot(fig)
+
+                X_pred = pd.DataFrame(X_pred)
+                y_pred = model.predict(X_pred)
+                if y_pred == "yes":
+                    st.markdown(
+                        "#### Subscription Outcome: Client will subscribe!!")
+                else:
+                    st.markdown(
+                        "#### Subscription Outcome: Client will not subscribe!!")
 
     with tab5:
         st.markdown("""Our primary goal in this study is to predict whether a client 
