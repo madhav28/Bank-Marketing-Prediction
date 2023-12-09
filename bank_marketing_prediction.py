@@ -1087,10 +1087,9 @@ with tab4:
         st.markdown("""The goal of the application is achieved by providing a modelling tool 
                     for users who are interested in predicting the subscription outcome for 
                     a term deposit by a client. A detailed description is also provided on how 
-                    to evaluate the performance metrics of the various models used to solve this problem. 
-                    Thereby, using this information, the user would be able to build various of his own 
-                    interest (by varying features) and make an informed decision on which to choose 
-                    for making a prediction.""")
+                    to evaluate the performance metrics of the various models. Thereby, the user would 
+                    be able to build various models of his own interest (by varying features) 
+                    and make an informed decision on which to choose for making a prediction.""")
 
     with tab6:
         st.markdown(
