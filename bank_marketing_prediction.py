@@ -57,13 +57,22 @@ with tab1:
 
     st.table(feature_description_df)
 
+    st.markdown("**Exploratory Data Analysis:**")
+    st.markdown("https://bank-marketing-analysis.streamlit.app/")
+
 with tab2:
     st.markdown("**Objectives of the application:**")
-
     st.markdown(
         "💡 Build multiple classification models and predict the subscription outcome of a client.")
     st.markdown(
         "💡 Compare all the built classifcation models and identify the best classification model.")
+
+    st.markdown("**Target User:**")
+    st.markdown("""This application is intended for bank analysts who would like to build and 
+                analyse different kinds of classification models for predicting subscription 
+                outcomes. After a model is built, a comprehensive report of the model is shared with the user. 
+                Using this information, users can make an informed decision on whether to 
+                use or discard the model based on their discretion.""")
 
 with tab3:
     st.markdown("**Following are the pre-processing steps used in this study:**")
@@ -182,8 +191,7 @@ with tab4:
     st.markdown("5. Naive Bayes")
     st.markdown("""Each of the above model is developed in each tab. In each of 
                 the following tabs, an option is provided for users of this application 
-                to develop different models with different hyperparameters for predicting 
-                the subscription outcome.""")
+                to develop different models with different features for predicting the subscription outcome.""")
 
     pm_tab1, pm_tab2, pm_tab3, pm_tab4, pm_tab5 = st.tabs(
         ['Logistic Regression', 'Support Vector Machine', 'Decision Tree', 'K-Nearest Neighbours', 'Naive Bayes'])
@@ -1045,6 +1053,9 @@ with tab4:
                     able to optimally allocate its resources on clients who are most likely 
                     to subscribe to a term deposit.""")
 
+        st.markdown("""The following plots are the performance metrics of the models that were built 
+                    by considering all 16 features for training and with a test size of 0.2:""")
+
         st.markdown("##### ❌ metric for model comparison")
         data = {"Model": ["Logistic Regression", "Support Vector Machine",
                           "Decision Tree", "K-Nearest Neighbours", "Naive Bayes"],
@@ -1071,6 +1082,15 @@ with tab4:
                     precision is around 0.66. This high precision is achieved by Support Vector 
                     Classifier. Hence, out of all the classifiers, Support Vector Classifier is 
                     the best estimator to solve this problem.""")
+
+        st.markdown("**Final Remarks:**")
+        st.markdown("""The goal of the application is achieved by providing a modelling tool 
+                    for users who are interested in predicting the subscription outcome for 
+                    a term deposit by a client. A detailed description is also provided on how 
+                    to evaluate the performance metrics of the various models used to solve this problem. 
+                    Thereby, using this information, the user would be able to build various of his own 
+                    interest (by varying features) and make an informed decision on which to choose 
+                    for making a prediction.""")
 
     with tab6:
         st.markdown(
