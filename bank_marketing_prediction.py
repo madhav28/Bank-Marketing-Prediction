@@ -20,7 +20,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 st.title("Bank Marketing Prediction")
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
-    ['About Data', 'Objectives', 'Data Pre-processing', 'Predictive Modelling', 'Results and Discussion', 'About Me'])
+    ['About Data', 'Objectives', 'Data Pre-processing', 'Predictive Modelling', 'Conclusion', 'About Me'])
 
 bank_marketing_df = pd.read_csv(
     "https://raw.githubusercontent.com/madhav28/Bank-Marketing-Prediction/master/bank-full.csv", sep=';')
