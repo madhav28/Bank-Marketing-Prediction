@@ -210,8 +210,9 @@ with tab4:
             "Select features", bank_marketing_df.columns[0:16],
             default=np.array(bank_marketing_df.columns[0:16]),
             key="features_pm_tab1")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab1")
+        if len(features) > 0:
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab1")
 
         st.markdown("#### Prediction Details")
         st.markdown("---")
@@ -382,8 +383,9 @@ with tab4:
             "Select features", bank_marketing_df.columns[0:16],
             default=np.array(bank_marketing_df.columns[0:16]),
             key="features_pm_tab2")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab2")
+        if len(features) > 0:
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab2")
 
         st.markdown("#### Prediction Details")
         st.markdown("---")
@@ -554,8 +556,9 @@ with tab4:
             "Select features", bank_marketing_df.columns[0:16],
             default=np.array(bank_marketing_df.columns[0:16]),
             key="features_pm_tab3")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab3")
+        if len(features) > 0:
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab3")
 
         st.markdown("#### Prediction Details")
         st.markdown("---")
@@ -726,8 +729,9 @@ with tab4:
             "Select features", bank_marketing_df.columns[0:16],
             default=np.array(bank_marketing_df.columns[0:16]),
             key="features_pm_tab4")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab4")
+        if len(features) > 0:
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab4")
 
         st.markdown("#### Prediction Details")
         st.markdown("---")
@@ -898,8 +902,9 @@ with tab4:
             "Select features", bank_marketing_df.columns[0:16],
             default=np.array(bank_marketing_df.columns[0:16]),
             key="features_pm_tab5")
-        test_size = st.slider("Select test size", 0.1,
-                              0.9, 0.2, 0.1, key="test_size_pm_tab5")
+        if len(features) > 0:
+            test_size = st.slider("Select test size", 0.1,
+                                  0.9, 0.2, 0.1, key="test_size_pm_tab5")
 
         st.markdown("#### Prediction Details")
         st.markdown("---")
