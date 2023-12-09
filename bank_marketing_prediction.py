@@ -1074,8 +1074,8 @@ with tab4:
                     able to optimally allocate its resources on clients who are most likely 
                     to subscribe to a term deposit.""")
 
-        st.markdown("""The following plots are the performance metrics of the models that were built 
-                    by considering all 16 features for training and with a test size of 0.2:""")
+        st.markdown("""**The following plots are the performance metrics of the models that were built 
+                    by considering all 16 features for training and with a test size of 0.2:**""")
 
         st.markdown("##### ❌ metric for model comparison")
         data = {"Model": ["Logistic Regression", "Support Vector Machine",
